@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emafido Emmanuel Aridon - Portfolio</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --success: #4cc9f0;
+            --warning: #ff9e00;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--gradient);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Page Container */
+        .page-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Profile Card Styles */
+        .profile-card {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-header {
+            background: var(--gradient);
+            color: white;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .current-time {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .profile-header {
+                flex-direction: row;
+                text-align: left;
+                padding: 40px;
+            }
+            
+            .avatar-container {
+                margin-right: 30px;
+                margin-bottom: 0;
+            }
+        }
+
+        .section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--success);
+            display: flex;
+            align-items: center;
+        }
+
+        .bio {
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .list {
+            list-style-type: none;
+        }
+
+        .list-item {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(5px);
+        }
+
+        .hobbies .list-item {
+            border-left: 4px solid var(--success);
+        }
+
+        .dislikes .list-item {
+            border-left: 4px solid var(--accent);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-item {
+            background: var(--gradient);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Contact Form Styles */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-control.error {
+            border-color: var(--accent);
+        }
+
+        .error-message {
+            color: var(--accent);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* About Page Styles */
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .about-section:last-child {
+            border-bottom: none;
+        }
+
+        .about-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .about-content {
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        .about-list {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .about-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .about-list li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark);
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .page-container {
+                padding: 0 1rem;
+            }
+            
+            .contact-card, .about-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" data-testid="test-navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" data-testid="test-logo">Emafido Emmanuel</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-testid="test-nav-profile">Profile</a></li>
+                <li><a href="#" class="nav-link" data-testid="test-nav-about">About Me</a></li>
+                <li><a href="#" class="nav-link" data-testid="test-nav-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Profile Page -->
+        <div class="page active" id="profile-page" data-testid="test-profile-page">
+            <article class="profile-card" data-testid="test-profile-card">
+                <header class="profile-header">
+                    <figure class="avatar-container" data-testid="test-user-avatar-container">
+                        <img src="Profile Pic.jpg" alt="Profile picture of Emafido Emmanuel Aridon" class="avatar" data-testid="test-user-avatar">
+                        <figcaption class="visually-hidden" data-testid="test-user-avatar-caption">
+                            Profile picture of Emafido Emmanuel Aridon
+                        </figcaption>
+                    </figure>
+                    <div class="header-content">
+                        <h1 class="profile-name" data-testid="test-user-name">Emafido Emmanuel Aridon</h1>
+                        <p class="profile-title" data-testid="test-user-title">Junior Web Developer</p>
+                        <div class="current-time" data-testid="test-user-time"></div>
+                    </div>
+                </header>
+
+                <main class="profile-content">
+                    <section class="section bio-section">
+                        <h2 class="section-title" data-testid="test-bio-title">
+                            📝 About Me
+                        </h2>
+                        <p class="bio" data-testid="test-user-bio">
+                            Passionate junior web developer with expertise in HTML, CSS, JavaScript, React, and Tailwind CSS. 
+                            I love creating responsive, accessible web applications with clean code and modern design principles. 
+                            Always eager to learn new technologies and collaborate on exciting projects.
+                        </p>
+                        
+                        <h3 class="section-title" style="font-size: 1.1rem; margin-top: 20px;">
+                            ⚡ Tech Stack
+                        </h3>
+                        <div class="tech-stack">
+                            <span class="tech-item">HTML</span>
+                            <span class="tech-item">CSS</span>
+                            <span class="tech-item">JavaScript</span>
+                            <span class="tech-item">React</span>
+                            <span class="tech-item">Tailwind</span>
+                        </div>
+                    </section>
+
+                    <section class="section social-section">
+                        <h2 class="section-title" data-testid="test-social-title">
+                            🌐 Connect With Me
+                        </h2>
+                        <nav class="social-links" data-testid="test-user-social-links" aria-label="Social media links">
+                            <a href="https://www.linkedin.com/in/emmanuel-emafido" class="social-link" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-linkedin">
+                                LinkedIn
+                            </a>
+                            <a href="https://github.com/Emafido" class="social-link" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-github">
+                                GitHub
+                            </a>
+                            <a href="https://x.com/EmmanuelEmafido" class="social-link" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-twitter">
+                                Twitter
+                            </a>
+                            <a href="https://www.instagram.com/emafido_10" class="social-link" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-instagram">
+                                Instagram
+                            </a>
+                        </nav>
+                    </section>
+
+                    <section class="section hobbies">
+                        <h2 class="section-title" data-testid="test-hobbies-title">
+                            🎯 Hobbies & Interests
+                        </h2>
+                        <ul class="list" data-testid="test-user-hobbies">
+                            <li class="list-item" data-testid="test-user-hobby-1">
+                                💻 Coding & Web Development
+                            </li>
+                            <li class="list-item" data-testid="test-user-hobby-2">
+                                🎨 UI/UX Design
+                            </li>
+                            <li class="list-item" data-testid="test-user-hobby-3">
+                                📚 Reading Tech Blogs
+                            </li>
+                            <li class="list-item" data-testid="test-user-hobby-4">
+                                🎵 Listening to Music
+                            </li>
+                            <li class="list-item" data-testid="test-user-hobby-5">
+                                🚴 Cycling
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="section dislikes">
+                        <h2 class="section-title" data-testid="test-dislikes-title">
+                            🚫 Pet Peeves
+                        </h2>
+                        <ul class="list" data-testid="test-user-dislikes">
+                            <li class="list-item" data-testid="test-user-dislike-1">
+                                😫 Inconsistent code formatting
+                            </li>
+                            <li class="list-item" data-testid="test-user-dislike-2">
+                                🕒 Poorly documented code
+                            </li>
+                            <li class="list-item" data-testid="test-user-dislike-3">
+                                🌧️ Rainy days without coffee
+                            </li>
+                            <li class="list-item" data-testid="test-user-dislike-4">
+                                📵 Slow internet connections
+                            </li>
+                        </ul>
+                    </section>
+                </main>
+            </article>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about-page" data-testid="test-about-page">
+            <main class="about-container">
+                <article class="about-card">
+                    <header>
+                        <h1 data-testid="test-about-title">About Me: My Journey & Reflections</h1>
+                    </header>
+                    
+                    <section class="about-section" data-testid="test-about-bio">
+                        <h2 class="about-title">📖 My Background</h2>
+                        <div class="about-content">
+                            <p>I'm Emafido Emmanuel Aridon, a passionate junior web developer with a strong foundation in modern web technologies. My journey into web development started with curiosity about how websites work, which quickly evolved into a passion for creating digital experiences.</p>
+                            <p>I believe in continuous learning and staying updated with the latest industry trends and best practices. My approach to development focuses on creating clean, maintainable code that delivers excellent user experiences across all devices.</p>
+                        </div>
+                    </section>
+                    
+                    <section class="about-section" data-testid="test-about-goals">
+                        <h2 class="about-title">🎯 Goals in This Program</h2>
+                        <div class="about-content">
+                            <p>My primary goals for participating in this Frontend Wizards program are:</p>
+                            <ul class="about-list">
+                                <li>Master advanced JavaScript concepts and modern frameworks</li>
+                                <li>Develop expertise in building scalable, maintainable applications</li>
+                                <li>Improve my understanding of web accessibility standards</li>
+                                <li>Learn industry best practices for testing and deployment</li>
+                                <li>Build a strong portfolio of real-world projects</li>
+                                <li>Connect with other developers and learn from their experiences</li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    <section class="about-section" data-testid="test-about-confidence">
+                        <h2 class="about-title">🤔 Areas of Low Confidence</h2>
+                        <div class="about-content">
+                            <p>While I'm comfortable with core frontend technologies, I'm actively working to improve in these areas:</p>
+                            <ul class="about-list">
+                                <li><strong>Advanced State Management:</strong> Complex state patterns in large applications</li>
+                                <li><strong>Performance Optimization:</strong> Identifying and fixing performance bottlenecks</li>
+                                <li><strong>Testing Strategies:</strong> Comprehensive unit and integration testing</li>
+                                <li><strong>Backend Integration:</strong> Complex API designs and authentication flows</li>
+                                <li><strong>DevOps & Deployment:</strong> CI/CD pipelines and production deployment strategies</li>
+                            </ul>
+                            <p>I see these as opportunities for growth rather than limitations, and I'm excited to tackle these challenges throughout the program.</p>
+                        </div>
+                    </section>
+                    
+                    <section class="about-section" data-testid="test-about-future-note">
+                        <h2 class="about-title">💌 Note to My Future Self</h2>
+                        <div class="about-content">
+                            <p>Dear Future Emmanuel,</p>
+                            <p>Remember why you started this journey - the excitement of seeing your code come to life, the satisfaction of solving complex problems, and the joy of creating things that help others.</p>
+                            <p>Don't forget that growth happens outside your comfort zone. Embrace challenges as opportunities to learn. Stay curious, keep building, and never stop learning from both successes and failures.</p>
+                            <p>Most importantly, maintain the passion that brought you here. The tech landscape will keep changing, but your ability to adapt and learn will always be your greatest asset.</p>
+                            <p>Keep coding with purpose and building with heart.</p>
+                        </div>
+                    </section>
+                    
+                    <section class="about-section" data-testid="test-about-extra">
+                        <h2 class="about-title">🌟 Additional Thoughts</h2>
+                        <div class="about-content">
+                            <p>I'm particularly excited about the potential of web technologies to create positive change. Whether it's building educational platforms, tools that improve productivity, or applications that connect communities, I believe code can be a force for good.</p>
+                            <p>I'm also passionate about mentorship and knowledge sharing. As I grow in my career, I hope to help others starting their development journey, just as others have helped me.</p>
+                            <p>This program represents a significant step in my professional development, and I'm committed to making the most of this opportunity to grow as a developer and contributor to the tech community.</p>
+                        </div>
+                    </section>
+                </article>
+            </main>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact-page" data-testid="test-contact-page">
+            <main class="contact-container">
+                <article class="contact-card">
+                    <header>
+                        <h1 data-testid="test-contact-title">Get In Touch</h1>
+                        <p data-testid="test-contact-description">I'd love to hear from you! Fill out the form below and I'll get back to you as soon as possible.</p>
+                    </header>
+                    
+                    <form id="contact-form" data-testid="test-contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label" data-testid="test-contact-name-label">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                class="form-control" 
+                                data-testid="test-contact-name"
+                                aria-describedby="name-error"
+                                required
+                            >
+                            <div id="name-error" class="error-message" data-testid="test-contact-error-name">
+                                Please enter your full name
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label" data-testid="test-contact-email-label">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="form-control" 
+                                data-testid="test-contact-email"
+                                aria-describedby="email-error"
+                                required
+                            >
+                            <div id="email-error" class="error-message" data-testid="test-contact-error-email">
+                                Please enter a valid email address
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label" data-testid="test-contact-subject-label">Subject</label>
+                            <input 
+                                type="text" 
+                                id="subject" 
+                                class="form-control" 
+                                data-testid="test-contact-subject"
+                                aria-describedby="subject-error"
+                                required
+                            >
+                            <div id="subject-error" class="error-message" data-testid="test-contact-error-subject">
+                                Please enter a subject for your message
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label" data-testid="test-contact-message-label">Message</label>
+                            <textarea 
+                                id="message" 
+                                class="form-control" 
+                                rows="5" 
+                                data-testid="test-contact-message"
+                                aria-describedby="message-error"
+                                required
+                            ></textarea>
+                            <div id="message-error" class="error-message" data-testid="test-contact-error-message">
+                                Please enter a message with at least 10 characters
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn" data-testid="test-contact-submit">Send Message</button>
+                        
+                        <div class="success-message" data-testid="test-contact-success">
+                            ✅ Thank you for your message! I'll get back to you soon.
+                        </div>
+                    </form>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p data-testid="test-footer-text">© 2025 Emafido Emmanuel Aridon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active nav link
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding page
+                    const targetPage = this.getAttribute('data-testid').replace('test-nav-', '') + '-page';
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Update current time in milliseconds
+            function updateTime() {
+                const timeElement = document.querySelector('[data-testid="test-user-time"]');
+                if (timeElement) {
+                    timeElement.textContent = `Current time: ${Date.now()} ms`;
+                }
+            }
+            
+            // Initial call
+            updateTime();
+            
+            // Update time every second
+            setInterval(updateTime, 1000);
+            
+            // Handle avatar image error
+            const avatar = document.querySelector('[data-testid="test-user-avatar"]');
+            if (avatar) {
+                avatar.onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjNDM2MWVlIi8+Cjx0ZXh0IHg9Ijc1IiB5PSI4MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RUE8L3RleHQ+Cjwvc3ZnPgo=';
+                    this.alt = "Default avatar for Emafido Emmanuel Aridon";
+                };
+            }
+            
+            // Contact Form Validation
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Reset previous errors
+                    const errorMessages = document.querySelectorAll('.error-message');
+                    const inputs = document.querySelectorAll('.form-control');
+                    
+                    errorMessages.forEach(msg => {
+                        msg.classList.remove('show');
+                    });
+                    
+                    inputs.forEach(input => {
+                        input.classList.remove('error');
+                    });
+                    
+                    // Get form values
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const subject = document.getElementById('subject').value.trim();
+                    const message = document.getElementById('message').value.trim();
+                    
+                    let isValid = true;
+                    
+                    // Validate name
+                    if (!name) {
+                        document.querySelector('[data-testid="test-contact-error-name"]').classList.add('show');
+                        document.getElementById('name').classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate email
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!email || !emailRegex.test(email)) {
+                        document.querySelector('[data-testid="test-contact-error-email"]').classList.add('show');
+                        document.getElementById('email').classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate subject
+                    if (!subject) {
+                        document.querySelector('[data-testid="test-contact-error-subject"]').classList.add('show');
+                        document.getElementById('subject').classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate message
+                    if (!message || message.length < 10) {
+                        document.querySelector('[data-testid="test-contact-error-message"]').classList.add('show');
+                        document.getElementById('message').classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // If valid, show success message
+                    if (isValid) {
+                        document.querySelector('[data-testid="test-contact-success"]').classList.add('show');
+                        contactForm.reset();
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            document.querySelector('[data-testid="test-contact-success"]').classList.remove('show');
+                        }, 5000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
